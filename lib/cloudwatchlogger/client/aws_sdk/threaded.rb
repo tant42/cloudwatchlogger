@@ -50,7 +50,7 @@ module CloudWatchLogger
             loop do
               connect!(opts) if @client.nil?
 
-              msg = @queue.pop
+              msg = @queue.pop(opts[:batch_size] || 1)
               break if msg == :__delivery_thread_exit_signal__
 
               begin
